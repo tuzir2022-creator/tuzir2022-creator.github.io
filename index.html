@@ -149,7 +149,33 @@ footer{padding:26px 0 40px;color:var(--ink-3);font-size:14px;display:flex;flex-w
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
 .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
-/*max-btn*/.btn.btn-ghost[data-copy],.final .btn.btn-ghost[data-copy]{background:linear-gradient(120deg,#3a5df0 0%,#7a3fe4 100%);color:#fff;border-color:transparent;box-shadow:0 10px 24px -10px rgba(98,64,232,.65)}.btn.btn-ghost[data-copy]:hover,.final .btn.btn-ghost[data-copy]:hover{background:linear-gradient(120deg,#3a5df0 0%,#7a3fe4 100%);transform:translateY(-2px)}.btn[data-copy] svg{width:24px;height:24px}</style>
+/*max-btn*/.btn.btn-ghost[data-copy],.final .btn.btn-ghost[data-copy]{background:linear-gradient(120deg,#3a5df0 0%,#7a3fe4 100%);color:#fff;border-color:transparent;box-shadow:0 10px 24px -10px rgba(98,64,232,.65)}.btn.btn-ghost[data-copy]:hover,.final .btn.btn-ghost[data-copy]:hover{background:linear-gradient(120deg,#3a5df0 0%,#7a3fe4 100%);transform:translateY(-2px)}.btn[data-copy] svg{width:24px;height:24px}
+/* галерея первых экранов (блок из 21st.dev "animated-testimonials", переписан без React) */
+.gal{display:grid;gap:36px;align-items:center}
+@media (min-width:900px){.gal{grid-template-columns:1.1fr .9fr;gap:64px}}
+.gal-stage{position:relative;aspect-ratio:16/11;width:100%;max-width:620px;margin:0 auto;perspective:1200px}
+.gal-card{position:absolute;left:0;right:0;top:0;aspect-ratio:16/10;transform-origin:bottom center;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 30px 50px -30px rgba(20,21,26,.45),0 0 0 1px var(--line);transition:transform .45s ease-in-out,opacity .45s ease-in-out;opacity:0;pointer-events:none}
+.gal-card .bar{display:flex;align-items:center;gap:6px;height:26px;padding:0 12px;background:var(--soft)}
+.gal-card .bar i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.gal-card .bar span{margin-left:8px;font-size:11px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gal-card img{display:block;width:100%;height:calc(100% - 26px);object-fit:cover;object-position:top;-webkit-user-drag:none;user-select:none}
+.gal-card.pop{animation:galpop .6s ease-in-out}
+@keyframes galpop{0%,100%{translate:0 0}40%{translate:0 -46px}}
+.gal-text{display:flex;flex-direction:column;justify-content:space-between;min-height:260px}
+.gal-text .meta{color:var(--ink-3);font-size:14px}
+.gal-text h3{font-size:clamp(26px,3.2vw,38px);line-height:1.08;margin:10px 0 0}
+.gal-text .about{font-size:clamp(17px,1.7vw,19px);color:var(--ink-2);margin:20px 0 0;max-width:34ch}
+.gal-text .about span{display:inline-block;animation:galword .35s ease-out both}
+@keyframes galword{from{opacity:0;filter:blur(8px);transform:translateY(5px)}to{opacity:1;filter:none;transform:none}}
+.gal-ctl{display:flex;align-items:center;gap:12px;margin-top:28px;flex-wrap:wrap}
+.gal-ctl button{width:44px;height:44px;border-radius:50%;border:0;background:var(--soft);color:var(--ink);cursor:pointer;display:grid;place-items:center;transition:background .2s,transform .2s}
+.gal-ctl button:hover{background:var(--line)}
+.gal-ctl button.prev:hover svg{transform:rotate(-12deg)}.gal-ctl button.next:hover svg{transform:rotate(12deg)}
+.gal-ctl svg{width:20px;height:20px;transition:transform .25s}
+.gal-ctl .count{font-size:14px;color:var(--ink-3);min-width:56px}
+.gal-ctl .open{margin-left:auto;font-weight:600;color:var(--accent);text-decoration:none}
+.gal-ctl .open:hover{text-decoration:underline}
+@media (prefers-reduced-motion:reduce){.gal-card,.gal-card.pop,.gal-text .about span{transition:none;animation:none}}</style>
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -169,6 +195,21 @@ footer{padding:26px 0 40px;color:var(--ink-3);font-size:14px;display:flex;flex-w
     <div class="fan" id="fan" aria-label="Мои работы"></div>
   </section>
 
+
+  <section class="block" id="gallery" aria-label="Первые экраны сайтов">
+    <div class="gal">
+      <div class="gal-stage" id="galStage"></div>
+      <div class="gal-text">
+        <div id="galInfo"></div>
+        <div class="gal-ctl">
+          <button class="prev" id="galPrev" type="button" aria-label="Предыдущий сайт"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+          <button class="next" id="galNext" type="button" aria-label="Следующий сайт"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <span class="count" id="galCount"></span>
+          <a class="open" id="galOpen" href="#" target="_blank" rel="noopener">Открыть сайт →</a>
+        </div>
+      </div>
+    </div>
+  </section>
   <section class="block" id="works">
     <div class="block-head reveal"><div><div class="eyebrow">Работы</div><h2>Сайты, которые я сделал</h2></div><p id="worksNote"></p></div>
     <div id="cases"></div>
@@ -297,6 +338,46 @@ footer{padding:26px 0 40px;color:var(--ink-3);font-size:14px;display:flex;flex-w
   }), { threshold: .15 });
   document.querySelectorAll('.phone,.reveal').forEach((el) => io.observe(el));
   addEventListener('scroll', () => document.querySelector('.top').classList.toggle('scrolled', scrollY > 8), { passive: true });
+
+  // галерея первых экранов: стопка карточек, подпись слово за словом
+  (() => {
+    const list = cases.filter((c) => c.desktop);
+    const sec = $('gallery');
+    if (!list.length) { sec.remove(); return; }
+    const n = list.length, stage = $('galStage'), info = $('galInfo');
+    const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+    let active = 0, paused = false, visible = false;
+    // у каждой карточки свой постоянный небольшой наклон, пока она лежит в стопке
+    const tilt = list.map((_, i) => ((i * 37) % 11) - 5);
+    stage.innerHTML = list.map((c) => `<div class="gal-card"><div class="bar"><i></i><i></i><i></i><span>${esc((c.url || '').replace(/^https?:\/\//, ''))}</span></div><img src="${esc(c.desktop)}" alt="Первый экран сайта ${esc(c.title)}" draggable="false" loading="lazy"></div>`).join('');
+    const cards = [...stage.children];
+    const place = () => cards.forEach((el, i) => {
+      const d = (i - active + n) % n;
+      const shown = d <= 3;
+      el.style.opacity = shown ? (d === 0 ? 1 : .8 - d * .12) : 0;
+      el.style.zIndex = shown ? 10 - d : 0;
+      el.style.transform = d === 0 ? 'none' : `translateY(${-d * 14}px) scale(${1 - d * .045}) rotate(${tilt[i] * (d === 1 ? .8 : 1)}deg)`;
+    });
+    const words = (t) => String(t).split(' ').map((w, i) => `<span style="animation-delay:${(i * .025).toFixed(3)}s">${esc(w)}&nbsp;</span>`).join('');
+    const draw = (animate) => {
+      const c = list[active];
+      info.innerHTML = `<div class="meta">${esc([c.niche, c.city].filter(Boolean).join(' · '))}</div><h3>${esc(c.title)}</h3><p class="about">${reduce ? esc(c.about || '') : words(c.about || '')}</p>`;
+      $('galCount').textContent = `${active + 1} / ${n}`;
+      const a = $('galOpen'); a.href = c.url || '#'; a.style.display = c.url ? '' : 'none';
+      place();
+      if (animate && !reduce) { const el = cards[active]; el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); }
+    };
+    const go = (d) => { active = (active + d + n) % n; draw(true); };
+    $('galNext').addEventListener('click', () => go(1));
+    $('galPrev').addEventListener('click', () => go(-1));
+    sec.addEventListener('mouseenter', () => { paused = true; });
+    sec.addEventListener('mouseleave', () => { paused = false; });
+    sec.addEventListener('focusin', () => { paused = true; });
+    sec.addEventListener('focusout', () => { paused = false; });
+    new IntersectionObserver((es) => { visible = es[0].isIntersecting; }, { threshold: .3 }).observe(sec);
+    if (!reduce) setInterval(() => { if (visible && !paused && !document.hidden) go(1); }, 4000);
+    draw(false);
+  })();
 })();
 </script>
 </body>
