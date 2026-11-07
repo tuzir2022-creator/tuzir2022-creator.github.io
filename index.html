@@ -117,7 +117,8 @@ section.block{padding:72px 0;border-top:1px solid var(--line)}
 
 /* как работаю – настоящая последовательность, поэтому номера */
 .steps{display:grid;gap:14px;counter-reset:s;list-style:none;margin:0;padding:0}
-@media (min-width:760px){.steps{grid-template-columns:repeat(4,1fr)}}
+@media (min-width:760px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1100px){.steps{grid-template-columns:repeat(5,1fr)}.steps.four{grid-template-columns:repeat(4,1fr)}}
 .steps li{position:relative;background:var(--soft);border-radius:var(--r);padding:24px 22px 26px;counter-increment:s}
 .steps li::before{content:counter(s);display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--accent);color:#fff;font:400 15px/1 var(--display);margin-bottom:16px}
 .steps h3{font-size:18px;line-height:1.2}
@@ -225,6 +226,16 @@ footer{padding:26px 0 40px;color:var(--ink-3);font-size:14px;display:flex;flex-w
     <ol class="steps reveal" id="steps"></ol>
   </section>
 
+  <section class="block" id="promo">
+    <div class="block-head reveal"><div><div class="eyebrow">Реклама в Яндекс.Директ</div><h2>После запуска: приведу клиентов</h2></div><p>Сайт готов – дальше нужны люди, которые на него придут. Настройка рекламы – от 11 000 ₽.</p></div>
+    <ol class="steps four reveal">
+      <li><h3>Ключевые запросы</h3><p>Собираю фразы, по которым ваши клиенты ищут услугу прямо сейчас.</p></li>
+      <li><h3>Тексты объявлений</h3><p>Пишем вместе: коротко, по делу, без «лучших в городе».</p></li>
+      <li><h3>Поиск и РСЯ</h3><p>Настраиваю показы в поиске Яндекса и на сайтах-партнёрах.</p></li>
+      <li><h3>Запуск и оптимизация</h3><p>Запускаю, слежу за ценой заявки, отключаю лишнее.</p></li>
+    </ol>
+  </section>
+
   <section class="final reveal" id="write">
     <div>
       <div class="eyebrow" style="color:rgba(255,255,255,.6)">Написать</div>
@@ -325,8 +336,9 @@ footer{padding:26px 0 40px;color:var(--ink-3);font-size:14px;display:flex;flex-w
   $('steps').innerHTML = (D.steps || [
     ['Демо до оплаты', 'Собираю демо вашего сайта по карточке на Картах или вашему описанию.'],
     ['Правки словами', 'Говорите, что поменять, – меняю в тот же день.'],
+    ['Договор и предоплата 50%', 'Если демо подошло, фиксируем задачу и цену в договоре. Предоплата 50%, остальное – после запуска и вашей проверки.'],
     ['Ваш адрес', 'Переношу сайт на ваш домен или в вашу Тильду.'],
-    ['Готово', 'Сайт работает и приводит заявки. Остаюсь на связи.']
+    ['Готово', 'Вы проверяете сайт, вносите вторую часть, и он ваш. Остаюсь на связи.']
   ]).map(([t, p]) => `<li><h3>${esc(t)}</h3><p>${esc(p)}</p></li>`).join('');
 
   // сдвиг прокрутки внутри телефона = высота скриншота минус экран
